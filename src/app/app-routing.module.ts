@@ -11,6 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'geoloc',
+    loadChildren: () => import('./geoloc/geoloc.module').then( m => m.GeolocPageModule)
+  },
+  {
+    path: 'sensors',
+    loadChildren: () => import('./sensors/sensors.module').then( m => m.SensorsPageModule)
+  },
 ];
 
 @NgModule({
