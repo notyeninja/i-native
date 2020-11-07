@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'sensors',
     loadChildren: () => import('./sensors/sensors.module').then( m => m.SensorsPageModule)
   },
+  {
+    path: 'fence',
+    loadChildren: () => import('./fence/fence.module').then( m => m.FencePageModule)
+  },
 ];
 
 @NgModule({
