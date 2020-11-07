@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
+    "@capacitor/android": "^2.4.2",
     "@capacitor/core": "2.4.2",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/geofence": "^5.29.0",
@@ -31,6 +32,7 @@
     "cordova-plugin-geofence": "^0.7.0",
     "cordova-plugin-geolocation": "^4.0.2",
     "cordova-plugin-sensors": "git+https://github.com/fabiorogeriosj/cordova-plugin-sensors.git",
+    "es6-promise-plugin": "^4.2.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
