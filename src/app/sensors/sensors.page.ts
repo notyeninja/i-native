@@ -79,9 +79,7 @@ export class SensorsPage implements OnInit {
           },
         };
 
-        this.dbService.insertTestData(dataToSave).then((v) => {
-          this.takeAgain.next();
-        });
+        this.dbService.insertTestData(dataToSave);
       });
   }
 

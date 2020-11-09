@@ -53,8 +53,8 @@ export class DbService {
       let data = [];
       for(let i = 0; i < payload.rows.length; i++) {
          data.push({
-           id: payload.rows.item(0),
-           payload: payload.rows.item(1)
+           id: payload.rows.item(i).id,
+           payload: payload.rows.item(i).payload
          })
       }
       return data;
