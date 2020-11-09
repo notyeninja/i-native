@@ -7,7 +7,18 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
-    Click me
+  <ion-button (click)="onStart()" color="primary" expand="block">
+    start
   </ion-button>
+  <ion-text color="primary">
+    {{ acc | json}}
+  </ion-text>  
+  <ion-text color="secondary">
+    {{position | json }} <br/>
+    {{ posError | json }}
+  </ion-text>  
+  <ion-button (click)="onStop()" color="primary" expand="block">
+   stop
+  </ion-button>
+  {{err | json}}
 </ion-content>

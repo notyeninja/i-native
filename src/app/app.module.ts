@@ -10,6 +10,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Geofence } from '@ionic-native/geofence/ngx';
 import { Sensors } from '@ionic-native/sensors/ngx';
+import { DeviceMotion } from '@ionic-native/device-motion/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { SQLite } from "@ionic-native/sqlite/ngx";
+import { DbService } from './services/db.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +24,11 @@ import { Sensors } from '@ionic-native/sensors/ngx';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geofence,
-    Sensors
+    Sensors,
+    DeviceMotion,
+    Geolocation,
+    SQLite,
+    DbService
   ],
   bootstrap: [AppComponent]
 })
