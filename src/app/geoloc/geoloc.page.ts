@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DbService } from '../services/db.service';
 
 @Component({
   selector: 'app-geoloc',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeolocPage implements OnInit {
 
-  constructor() { }
+  data:any = []
+  constructor(private dbService: DbService) { }
 
   ngOnInit() {
+  }
+
+  async getData() {
+      this.data = await this.dbService.getTestData();
   }
 
 }

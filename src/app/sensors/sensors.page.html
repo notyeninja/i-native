@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>
       Blank
     </ion-title>
@@ -7,14 +10,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-button (click)="onClick()" color="primary" expand="block">
-    Click me
+  <ion-button (click)="onStart()" color="primary" expand="block">
+    start
   </ion-button>
-  <ion-text color="primary">
-    {{ acc | json}}
-  </ion-text>  
-  <ion-text color="secondary">
-    {{position | json }} <br/>
-    {{ posError | json }}
-  </ion-text>   -->
+
+  <ion-button (click)="onStop()" color="primary" expand="block">
+   stop
+  </ion-button>
+  {{err | json}}
 </ion-content>

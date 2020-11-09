@@ -33,8 +33,9 @@ export class DbService {
       .catch((e) => console.log(e));
   }
 
-  async insertTestData(payload: string): Promise<boolean> {
+  async insertTestData(payload: any): Promise<boolean> {
     try {
+      payload = JSON.stringify(payload);
       const result = await this.db.executeSql(
         `insert into test(payload) values (?)`,
         [payload]
