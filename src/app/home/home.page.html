@@ -7,10 +7,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button routerLink="/sensors">
+  <ion-button size="large" expand="full" class="ion-maring-top" routerLink="/sensors">
     Sessor Screen
   </ion-button>
-  <ion-button routerLink="/geoloc">
+  <ion-button size="large" expand="full" class="ion-margin-top" routerLink="/geoloc">
     Report
   </ion-button>
+  <ion-button class="ion-margin-top" 
+              expand="full"
+              size="large"
+              (click)="cleanStore()"
+              expand="full">Clean Data</ion-button>
 </ion-content>

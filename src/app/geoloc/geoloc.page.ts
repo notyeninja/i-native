@@ -16,6 +16,7 @@ export class GeolocPage implements OnInit {
 
   async getData() {
       this.data = await this.dbService.getTestData();
+      console.warn('got back grom db call');
   }
 
 }

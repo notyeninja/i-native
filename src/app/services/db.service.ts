@@ -49,19 +49,34 @@ export class DbService {
 
   async getTestData(): Promise<any> {
     try{
-      let payload =  await this.db.executeSql(`select * from test`,[]);
-      return JSON.parse(payload);
+      let payload =  await this.db.executeSql(`select id, payload from test`,[]);
+      let data = [];
+      for(let i = 0; i < payload.rows.length; i++) {
+         data.push({
+           id: payload.rows.item(0),
+           payload: payload.rows.item(1)
+         })
+      }
+      return data;
     }catch(err) {
       console.log(err);
     }
   }
 
-//   async deleteEverything(): Promise<any> {
-//     try{
-//       return await this.db.executeSql(`select * from test`,[]);
-//     }catch(err) {
-//       console.log(err);
-//     }
-//   }
+  async deleteEverything(): Promise<any> {
+    try{
+      return await this.sqlite.deleteDatabase(this.dbConfig);
+    }catch(err) {
+      console.log(err);
+    }
+  }
+
+  async cleanData(): Promise<any> {
+     try {
+          return await this.db.executeSql('delete from test',[]);
+     }catch(err) {
+       console.log(err);
+     }
+  }
 
 }

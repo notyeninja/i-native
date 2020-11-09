@@ -14,6 +14,7 @@ import {
 } from "rxjs";
 import { Geolocation, Geoposition } from "@ionic-native/geolocation/ngx";
 import { combineAll, repeatWhen, switchMap, takeUntil } from "rxjs/operators";
+import { DbService } from '../services/db.service';
 
 @Component({
   selector: "app-home",
@@ -32,9 +33,11 @@ export class HomePage {
   err: any;
 
   constructor(
-    private deviceMotion: DeviceMotion,
-    private geoLocation: Geolocation
+     private dbStore: DbService
   ) {}
 
+  async cleanStore() {
+      await this.dbStore.cleanData();
+  }
  
 }

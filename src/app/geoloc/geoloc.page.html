@@ -8,13 +8,16 @@
 </ion-header>
 
 <ion-content>
-  <ion-button color="primary">Get Data</ion-button>
+  <ion-button class="ion-margin-top" 
+              color="primary" 
+              (click)="getData()"
+              expand="full">Get Data</ion-button>
     <ion-list>
       <ion-item *ngFor="let d of data">
        <pre>
-         {{ d | json}}
+         {{ d.payload | json}}
        </pre>
       </ion-item>
     </ion-list>
- 
+  
 </ion-content>

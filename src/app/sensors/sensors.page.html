@@ -10,12 +10,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button (click)="onStart()" color="primary" expand="block">
-    start
-  </ion-button>
-
-  <ion-button (click)="onStop()" color="primary" expand="block">
-   stop
-  </ion-button>
+  <div>
+    <ion-button (click)="onStart()" color="primary" expand="block">
+      start
+    </ion-button>
+  </div><br/><br/>
+  <div>
+    <ion-button (click)="onStop()" color="primary" expand="block">
+      stop
+     </ion-button>
+  </div>
+ 
   {{err | json}}
 </ion-content>
