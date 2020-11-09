@@ -1,12 +1,27 @@
 import { Component, OnInit } from "@angular/core";
 import { DbService } from "../services/db.service";
-import { Subscription, timer, Subject, from, of } from "rxjs";
+import {
+  Subscription,
+  timer,
+  Subject,
+  from,
+  of,
+  zip,
+  forkJoin,
+  interval,
+} from "rxjs";
 import { Geolocation, Geoposition } from "@ionic-native/geolocation/ngx";
 import {
   DeviceMotion,
   DeviceMotionAccelerationData,
 } from "@ionic-native/device-motion/ngx";
-import { repeatWhen, switchMap, takeUntil, combineAll } from "rxjs/operators";
+import {
+  repeatWhen,
+  switchMap,
+  takeUntil,
+  combineAll,
+  take,
+} from "rxjs/operators";
 
 @Component({
   selector: "app-sensors",
@@ -14,14 +29,22 @@ import { repeatWhen, switchMap, takeUntil, combineAll } from "rxjs/operators";
   styleUrls: ["./sensors.page.scss"],
 })
 export class SensorsPage implements OnInit {
-  
   private takeAgain = new Subject<void>();
   private stop = new Subject<void>();
   private timeInterval = 5000;
   private joinedSubscription: Subscription;
 
-  position:any;
-  err:any;
+  private geoSubject: Subject<Geoposition> = new Subject<Geoposition>();
+  private motionSubject: Subject<DeviceMotionAccelerationData> = new Subject<
+    DeviceMotionAccelerationData
+  >();
+
+  private geo$ = this.geoSubject.asObservable();
+  private motion$ = this.motionSubject.asObservable();
+
+  position: any;
+  err: any;
+  data: any = [];
 
   constructor(
     private dbService: DbService,
@@ -29,48 +52,37 @@ export class SensorsPage implements OnInit {
     private geoLocation: Geolocation
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
-  startTracking(): void {
-    let motion$ = this.deviceMotion.watchAcceleration({
-      frequency: this.timeInterval,
-    });
-    let geo$ = timer(this.timeInterval).pipe(
-      switchMap(() => from(this.geoLocation.getCurrentPosition())),
-      takeUntil(this.stop),
-      repeatWhen(() => this.takeAgain)
-    );
+  altStart() {
+    this.joinedSubscription = interval(this.timeInterval)
+      .pipe(
+        switchMap(() =>
+          zip(
+            this.deviceMotion.getCurrentAcceleration(),
+            this.geoLocation.getCurrentPosition()
+          )
+        ),
+        takeUntil(this.stop)
+      )
+      .subscribe(([acc, geo]) => {
+        const geo1 = geo as Geoposition;
+        let dataToSave = {
+          displacement: acc,
+          position: {
+            lat: geo1.coords.latitude,
+            lng: geo1.coords.longitude,
+            heading: geo1.coords.heading,
+            speed: geo1.coords.speed,
+            timestamp: geo1.timestamp,
+          },
+        };
 
-    this.joinedSubscription = of(motion$, geo$)
-      .pipe(combineAll())
-      .subscribe(
-        (results) => {
-          console.warn("inside subscription of tracking");
-          const acc = results[0] as DeviceMotionAccelerationData;
-          const geo = results[1] as Geoposition;
-          let position = {
-            lat: geo.coords.latitude,
-            lng: geo.coords.longitude,
-            heading: geo.coords.heading,
-            speed: geo.coords.speed,
-            timestamp: geo.timestamp,
-          };
-          let dataToSave = {
-            displacement: acc,
-            position: position
-          };
-          
-          this.dbService.insertTestData(dataToSave);
+        this.dbService.insertTestData(dataToSave).then((v) => {
           this.takeAgain.next();
-        },
-        (err) => {
-          console.error(err);
-          this.err = err;
-          this.dbService.insertTestData(err);
-        }
-      );
-
-    
+        });
+      });
   }
 
   onStop() {
@@ -79,6 +91,6 @@ export class SensorsPage implements OnInit {
   }
 
   onStart() {
-    this.startTracking();
+    this.altStart();
   }
 }
