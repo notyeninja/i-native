@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Geofence } from '@ionic-native/geofence/ngx';
+import { Sensors } from '@ionic-native/sensors/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { Geofence } from '@ionic-native/geofence/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Geofence
+    Geofence,
+    Sensors
   ],
   bootstrap: [AppComponent]
 })
