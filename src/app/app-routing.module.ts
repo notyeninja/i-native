@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'fence',
     loadChildren: () => import('./fence/fence.module').then( m => m.FencePageModule)
   },
+  {
+    path: 'error',
+    loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
+  },
 ];
 
 @NgModule({

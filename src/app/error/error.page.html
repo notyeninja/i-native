@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>error</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button class="ion-margin-top"
+              color="primary"
+              (click)="getError()"
+              expand="full">Get Error</ion-button>
+
+  <ion-list>
+    <ion-item *ngFor="let e of error">
+      <ion-label>
+        {{ e.error | json}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

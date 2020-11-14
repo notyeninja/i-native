@@ -65,21 +65,26 @@ export class SensorsPage implements OnInit {
 				),
 				takeUntil(this.stop)
 			)
-			.subscribe(([acc, geo]) => {
-				const geo1 = geo as Geoposition;
-				let dataToSave = {
-					displacement: acc,
-					position: {
-						lat: geo1.coords.latitude,
-						lng: geo1.coords.longitude,
-						heading: geo1.coords.heading,
-						speed: geo1.coords.speed,
-						timestamp: geo1.timestamp
-					}
-				};
+			.subscribe(
+				([acc, geo]) => {
+					const geo1 = geo as Geoposition;
+					let dataToSave = {
+						displacement: acc,
+						position: {
+							lat: geo1.coords.latitude,
+							lng: geo1.coords.longitude,
+							heading: geo1.coords.heading,
+							speed: geo1.coords.speed,
+							timestamp: geo1.timestamp
+						}
+					};
 
-				this.dbService.insertTestData(dataToSave);
-			});
+					this.dbService.insertTestData(dataToSave);
+				},
+				error => {
+					this.dbService.insertError(error);
+				}
+			);
 	}
 
 	onStop() {
