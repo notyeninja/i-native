@@ -17,6 +17,8 @@ import { DbService } from "./services/db.service";
 import { BackgroundGeoService } from "./services/background-geo.service";
 import { BackgroundMode } from "@ionic-native/background-mode/ngx";
 import { BackgroundGeolocation } from "@ionic-native/background-geolocation/ngx";
+import { ForegroundService } from "@ionic-native/foreground-service/ngx";
+import { BackService } from "./services/back.service";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -34,7 +36,9 @@ import { BackgroundGeolocation } from "@ionic-native/background-geolocation/ngx"
 		DbService,
 		BackgroundGeolocation,
 		BackgroundGeoService,
-		BackgroundMode
+		BackgroundMode,
+		ForegroundService,
+		BackService
 	],
 	bootstrap: [AppComponent]
 })
